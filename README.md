@@ -1,3 +1,7 @@
+## **The visual lightning tsp is added to display origions of x and y with hover options.** 
+![image](https://github.com/user-attachments/assets/8cfd21d6-bfc2-4c47-a8df-77df13ed0611)
+
+
 # **Lightning TSP Module**
 
 **Module Name**: `lightning-tsp.js`  
