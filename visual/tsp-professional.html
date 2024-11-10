@@ -59,43 +59,66 @@ const solveSatisfiabilityAndTSP = async (cities) => {
         return { path, distance };
     };
 
-    /** Optimizes path with 2-opt swap technique.
+    /**
+     * Optimizes path with 2-opt swap technique.
      * @param {Array} path - Initial path of cities from TSP solution.
-     * @returns {Promise<Array>} - The optimized path.
+     * @returns {Array} - The optimized path.
      */
     const twoOpt = async (path) => {
         let improved = true;
-        
-        // Continuously attempt to improve the path until no further improvements
+
         while (improved) {
             improved = false;
-            
-            // Recursive two-opt swap logic to try all pairs of cities and swap if distance is reduced
-            await path.reduce(async (previousPromise, _, i) => {
-                await previousPromise;
-                return path.slice(i + 2).reduce(async (innerPromise, __, j) => {
-                    await innerPromise;
-                    
-                    // Create potential new path by reversing segment between i and j
+
+            for (let i = 1; i < path.length - 1; i++) {
+                for (let j = i + 1; j < path.length; j++) {
+
+                    // Calculate only the segments affected by the swap
+                    const beforeSwapDistance = 
+                        await segmentDistance(path, i - 1, i) +
+                        await segmentDistance(path, j, j + 1);
+
+                    // Reverse the segment between i and j
                     const newPath = [
                         ...path.slice(0, i),
-                        ...path.slice(i, i + j + 2).reverse(),
-                        ...path.slice(i + j + 2)
+                        ...path.slice(i, j + 1).reverse(),
+                        ...path.slice(j + 1)
                     ];
-                    
-                    const currentDistance = await totalDistance(path);
-                    const newDistance = await totalDistance(newPath);
-                    
-                    // Replace path if new path has a shorter distance
-                    if (newDistance < currentDistance) {
+
+                    const afterSwapDistance = 
+                        await segmentDistance(newPath, i - 1, i) +
+                        await segmentDistance(newPath, j, j + 1);
+
+                    // If the new path has a shorter distance, accept it
+                    if (afterSwapDistance < beforeSwapDistance) {
                         path = newPath;
                         improved = true;
                     }
-                }, Promise.resolve());
-            }, Promise.resolve());
+                }
+            }
         }
-        
+
         return path;
+    };
+
+    /**
+     * Helper function to calculate the distance between two nodes in a path.
+     * @param {Array} path - The path array of cities.
+     * @param {number} index1 - First index in path.
+     * @param {number} index2 - Second index in path.
+     * @returns {Promise<number>} - Distance between two points in the path.
+     */
+    const segmentDistance = async (path, index1, index2) => {
+        // Ensure indexes wrap around correctly if they go out of bounds
+        const i1 = (index1 + path.length) % path.length;
+        const i2 = (index2 + path.length) % path.length;
+
+        // Retrieve the two cities based on wrapped indexes
+        const city1 = path[i1];
+        const city2 = path[i2];
+
+        // Calculate and return the memoized distance between the two cities
+        return calculateDistance(city1, city2);
     };
 
     // Pre-calculate distances for all city pairs to improve memoization efficiency.
