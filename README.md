@@ -79,3 +79,19 @@ This module replaces all previous iterations, leaving a trail of improvements an
 
 - **Initial Attempt**: Focused on basic solutions for solving the TSP using brute force.
 - **Subsequent Improvements**: Introduced optimization techniques such as caching and asynchronous processing to reduce calculation time for larger datasets.
+
+## **Notes**
+
+- **Cities Object Removal**: In the final implementation, **do not include the `cities` object** directly in the module. Instead, ensure that the cities data is passed as an argument to the `solveSatisfiabilityAndTSP` function when the module is used. This keeps the module clean and reusable.
+
+- **Console Log and Call-to-Action**: If you're using this example as a test case for local execution, remember that **console logging the results** (such as logging the optimal path and distance) is only for testing purposes. When exporting this module, **remove the `console.log` statements** to avoid output during normal execution in a production environment. This will allow for seamless integration into other applications.
+
+- **Exporting the Module**: The module is intended to be exported and used in a larger system. Use the following format to export the function properly:
+  
+  ```javascript
+  module.exports = { solveSatisfiabilityAndTSP };
+  ```
+
+  This makes `solveSatisfiabilityAndTSP` accessible to other JavaScript files that import the module.
+
+- **Testing Locally**: When testing the module locally, you can include the `cities` and `clauses` objects within the test script and execute the `solveSatisfiabilityAndTSP` function directly. Just ensure that these objects are removed in the final exported module.
