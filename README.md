@@ -1,5 +1,6 @@
-## **The visual tsp is added to display origions of x and y with hover options.** 
+## **The visual mouse over object is added to display origions of x and y with hover options.** 
 ![image](https://github.com/user-attachments/assets/f0db00f9-5917-44b1-8813-4b6ac4c613db)
+**Shows mouse over a object in the example below canvas**
 
 
 # **TravelingSalesman.js Module**
