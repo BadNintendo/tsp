@@ -59,8 +59,7 @@ const solveSatisfiabilityAndTSP = async (cities) => {
         return { path, distance };
     };
 
-    /**
-     * Optimizes path with 2-opt swap technique.
+    /** Optimizes path with 2-opt swap technique.
      * @param {Array} path - Initial path of cities from TSP solution.
      * @returns {Array} - The optimized path.
      */
@@ -101,8 +100,7 @@ const solveSatisfiabilityAndTSP = async (cities) => {
         return path;
     };
 
-    /**
-     * Helper function to calculate the distance between two nodes in a path.
+    /** Helper function to calculate the distance between two nodes in a path.
      * @param {Array} path - The path array of cities.
      * @param {number} index1 - First index in path.
      * @param {number} index2 - Second index in path.
@@ -121,35 +119,34 @@ const solveSatisfiabilityAndTSP = async (cities) => {
         return calculateDistance(city1, city2);
     };
 
-    // Pre-calculate distances for all city pairs to improve memoization efficiency.
+   // Pre-calculate distances for all city pairs to improve memoization efficiency.
     const preCalcStart = performance.now();
     await Promise.all(cities.flatMap(city1 =>
         cities.map(city2 => calculateDistance(city1, city2))
     ));
     const preCalcEnd = performance.now();
-    console.log(`Pre-calculation time: ${preCalcEnd - preCalcStart}ms`);
+    console.log(`Pre-calculation time: ${Math.round(preCalcEnd - preCalcStart)}ms`);
 
     // Run initial TSP solution using the Nearest-Neighbor approach.
     const tspStart = performance.now();
     const tspResult = await tspNearestNeighbor(cities);
     const tspEnd = performance.now();
-    console.log(`TSP Nearest Neighbor time: ${tspEnd - tspStart}ms`);
+    console.log(`TSP Nearest Neighbor time: ${Math.round(tspEnd - tspStart)}ms`);
 
     // Optimize the TSP result with the 2-opt algorithm.
     const twoOptStart = performance.now();
     const optimizedPath = await twoOpt(tspResult.path);
     const twoOptEnd = performance.now();
-    console.log(`2-opt Optimization time: ${twoOptEnd - twoOptStart}ms`);
+    console.log(`2-opt Optimization time: ${Math.round(twoOptEnd - twoOptStart)}ms`);
 
     const optimizedDistance = await totalDistance(optimizedPath);
 
     const totalEnd = performance.now();
-    console.log(`Total execution time: ${totalEnd - preCalcStart}ms`);
+    console.log(`Total execution time: ${Math.round(totalEnd - preCalcStart)}ms`);
 
-    // Return the optimized path and distance.
     return {
-        tspPath: optimizedPath.map(city => city.name),
-        tspDistance: optimizedDistance,
+        tspPath: optimizedPath, // Sorted cities array based on TSP logic alt: optimizedPath.map(city => city.name),
+        tspDistance: optimizedDistance // Mock distance
     };
 };
 
@@ -406,107 +403,114 @@ const cities = [
   }
 ];
 
-solveSatisfiabilityAndTSP(cities).then(result => {
-    console.log("TSP Path:", result.tspPath);
-    console.log("TSP Distance:", result.tspDistance);
-});
-
-// Get the canvas element and its 2D rendering context
+// Canvas setup
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
+        canvas.style.backgroundColor = 'black';
+        const dotRadius = 5;
+        const LAYER_COUNT = 4;
+        const OFFSET_PERCENT = 0.22;
 
-/**
- * Calculates the maximum X and Y values in the dataset.
- * Used to scale the coordinates of each city to fit within the canvas dimensions.
- */
-const maxX = Math.max(...cities.map(item => item.x));
-const maxY = Math.max(...cities.map(item => item.y));
+        // Calculate max values for scaling
+        const maxX = Math.max(...cities.map(item => item.x));
+        const maxY = Math.max(...cities.map(item => item.y));
 
-/**
- * Scale factors for the X and Y axes to fit the dataset onto the canvas.
- * These scale factors adjust the coordinates so that all cities are visible on the canvas.
- */
-const scaleX = canvas.width / maxX;
-const scaleY = canvas.height / maxY;
+        // Adjust the Y scale to fit all cities on the canvas while accounting for layer offsets
+        const scaleX = canvas.width / maxX;
+        const scaleY = (canvas.height / LAYER_COUNT) / maxY; // Adjusted scaling for Y-axis based on layers
 
-// Set the background color of the canvas to black
-canvas.style.backgroundColor = 'black';
+        // Function to generate random RGB color for city dots
+        const getRandomColor = () => {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        };
 
-// Initialize variables to track the mouse position on the canvas
-let mouseX = 0;
-let mouseY = 0;
+        // Function to render cities and their connections
+        const drawCitiesWithConnections = (cities) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let firstInLayer = null;
+            let currentLayer = 0;
 
-// The radius of each dot representing a city, used for hover detection
-const dotRadius = 5;
+            cities.forEach((item, index) => {
+                const scaledX = item.x * scaleX;
+                const scaledY = item.y * scaleY;
+                const color = getRandomColor();
 
-/**
- * Generates a random RGB color for each city dot.
- * @returns {string} - A random RGB color string in the format 'rgb(r, g, b)'.
- */
-const getRandomColor = () => {
-  const r = Math.floor(Math.random() * 256); // Red component
-  const g = Math.floor(Math.random() * 256); // Green component
-  const b = Math.floor(Math.random() * 256); // Blue component
-  return `rgb(${r}, ${g}, ${b})`; // Return the color string
-};
+                // Determine layer and offset
+                const layerIndex = Math.floor((index / cities.length) * LAYER_COUNT);
+                const yOffset = layerIndex * OFFSET_PERCENT * canvas.height;
 
-// Iterate over the dataset of cities to draw each city as a dot
-cities.forEach(item => {
-  // Scale the X and Y coordinates to fit within the canvas dimensions
-  const scaledX = item.x * scaleX;
-  const scaledY = item.y * scaleY;
+                // Draw city dot
+                ctx.beginPath();
+                ctx.arc(scaledX, scaledY + yOffset, dotRadius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.closePath();
 
-  // Get a random color for the city dot
-  const color = getRandomColor();
+                // Track first city in the new layer
+                if (layerIndex !== currentLayer) {
+                    if (firstInLayer) {
+                        // Connect last city of previous layer to the first city of current layer
+                        ctx.beginPath();
+                        ctx.moveTo(firstInLayer.x, firstInLayer.y + yOffset);
+                        ctx.lineTo(scaledX, scaledY + yOffset);
+                        ctx.strokeStyle = firstInLayer.color;
+                        ctx.lineWidth = 0.8;
+                        ctx.globalAlpha = 0.3;
+                        ctx.stroke();
+                        ctx.closePath();
+                        ctx.globalAlpha = 1.0;
+                    }
+                    currentLayer = layerIndex;
+                    firstInLayer = { x: scaledX, y: scaledY, color };
+                } else if (index > 0) {
+                    // Draw line to connect to the previous dot
+                    ctx.beginPath();
+                    ctx.moveTo(cities[index - 1].scaledX, cities[index - 1].scaledY);
+                    ctx.lineTo(scaledX, scaledY + yOffset);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 0.8;
+                    ctx.globalAlpha = 0.8;
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.globalAlpha = 1.0;
+                }
 
-  // Draw the dot on the canvas at the scaled coordinates
-  ctx.beginPath();
-  ctx.arc(scaledX, scaledY, dotRadius, 0, Math.PI * 2); // Create a circle with the specified radius
-  ctx.fillStyle = color; // Set the fill color to the random color
-  ctx.fill(); // Fill the circle with the color
-  ctx.closePath(); // Close the path after filling
+                // Store scaled coordinates for hover detection
+                item.scaledX = scaledX;
+                item.scaledY = scaledY + yOffset;
+                item.layer = layerIndex + 1; // Store layer for display (1-based index)
+            });
+        };
 
-  // Store the color and scaled coordinates for future reference
-  item.color = color;
-  item.scaledX = scaledX;
-  item.scaledY = scaledY;
-});
+        // Example: Solving TSP and then rendering the cities with connections
+        solveSatisfiabilityAndTSP(cities).then(result => {
+            console.log("TSP Path:", result.tspPath);
+            console.log("TSP Distance:", result.tspDistance);
+            drawCitiesWithConnections(result.tspPath); // Use the sorted TSP path
+        });
 
-/**
- * Function to check if the mouse is hovering over any of the city dots.
- * Updates the displayed city information if a dot is hovered.
- */
-const checkHover = () => {
-  let hoveredCity = null; // To store the city that is being hovered over
-  
-  // Loop through each city and check if the mouse is within the radius of the dot
-  cities.forEach(item => {
-    // Calculate the distance between the mouse position and the city dot
-    const dx = mouseX - item.scaledX;
-    const dy = mouseY - item.scaledY;
-    const distance = Math.sqrt(dx * dx + dy * dy); // Euclidean distance formula
+        // Example: Hover effect to display city info
+        canvas.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            
+            // Clear previous info
+            document.getElementById('info').innerText = '';
 
-    // If the mouse is close enough to the dot, consider it hovered
-    if (distance < dotRadius) {
-      hoveredCity = item;
-    }
-  });
+            // Check if hovering over any city dot and display its information
+            cities.forEach((city) => {
+                const dx = mouseX - city.scaledX;
+                const dy = mouseY - city.scaledY;
 
-  // If a city is being hovered over, display its name and coordinates
-  if (hoveredCity) {
-    document.getElementById('info').innerText = `Name: ${hoveredCity.name}, X: ${hoveredCity.x}, Y: ${hoveredCity.y}`;
-  } else {
-    // Clear the info display if no city is hovered
-    document.getElementById('info').innerText = '';
-  }
-};
-
-// Event listener to track mouse movement over the canvas
-canvas.addEventListener('mousemove', (e) => {
-  const rect = canvas.getBoundingClientRect(); // Get the canvas's position relative to the viewport
-  mouseX = e.clientX - rect.left; // Calculate the mouse's X position relative to the canvas
-  mouseY = e.clientY - rect.top;  // Calculate the mouse's Y position relative to the canvas
-  checkHover(); // Check if the mouse is hovering over any city dots
-});
-
+                if (Math.hypot(dx, dy) < dotRadius) {
+                    //document.getElementById('info').innerText = `${city.name} (${Math.round(city.x)}, ${Math.round(city.y)})`;
+                    // Display city information including layers
+                    document.getElementById('info').innerText = `Name: ${city.name}, X: ${city.x.toFixed(2)}, Y: ${city.y.toFixed(2)}, Layer: ${city.layer}`;
+                }
+            });
+        });
 </script>
