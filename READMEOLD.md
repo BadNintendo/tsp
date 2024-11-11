@@ -1,36 +1,40 @@
-## **The visual mouse over object is added to display origions of x and y with hover options.** 
-![image](https://github.com/user-attachments/assets/f0db00f9-5917-44b1-8813-4b6ac4c613db)
+## **The visual mouse over object is added to display origions of x and y with hover options.** -**Try visual folder speedy html**!
+![image](https://github.com/user-attachments/assets/e05afe75-d47c-4978-8673-54e2a30b6cf6)
 **Shows mouse over a object in the example below canvas**
 
 
-# **TravelingSalesman.js Module**
+# **solvedtsp.js Module**
 
-**Module Name**: `TravelingSalesman.js`  
-**Primary Purpose**: Solves the Traveling Salesman Problem (TSP) in an optimized, asynchronous JavaScript module.
+**Module Name**: `solvedtsp.js`  
+**Primary Purpose**: Solves the Traveling Salesman Problem (TSP) using an optimized and asynchronous approach, incorporating distance memoization and heuristic methods.
 
 ---
 
 ## **Module Overview**
 
-The `TravelingSalesman.js` module is a highly optimized solution for solving the Traveling Salesman Problem (TSP). This module is designed to handle large datasets efficiently by using asynchronous programming techniques, such as async functions and memoization. It dramatically reduces calculation time for large datasets and can scale to handle up to 50,000 objects in about 82.9 seconds.
+The `solvedtsp.js` module provides an optimized solution for solving the Traveling Salesman Problem (TSP). It utilizes a combination of memoization for distance calculations, the Nearest-Neighbor heuristic for route generation, and a 2-opt swap technique for further optimization. Designed to handle a range of datasets efficiently, this module allows you to compute the shortest possible route for a set of cities based on their coordinates.
 
-The core focus of this module is on solving the TSP by finding an optimal route for a set of cities, based on their coordinates. The new implementation leverages asynchronous processing to improve performance, handling datasets ranging from small to large efficiently.
+This module is particularly useful for smaller to medium datasets and provides an approximate solution to the TSP, with performance that scales well as the number of cities increases.
 
 ---
 
 ## **Module Components**
 
-1. **Optimized Distance Calculation**  
-   - **Purpose**: Computes Euclidean distances between cities.
-   - **Operation**: Implements caching to store and quickly retrieve previously computed distances, avoiding redundant calculations.
+1. **Memoized Distance Calculation**  
+   - **Purpose**: Computes the Euclidean distance between two cities while caching the results for faster retrieval.
+   - **Operation**: A key-value cache stores distances between cities, ensuring that repeated calculations are avoided, improving performance.
 
-2. **Asynchronous Distance Summation**  
-   - **Purpose**: Calculates the total distance for the path between cities.
-   - **Operation**: Uses async functions to handle the summation concurrently, allowing non-blocking calculations, which is particularly useful when processing larger datasets.
+2. **Total Path Distance Calculation**  
+   - **Purpose**: Calculates the total distance for a path that visits each city exactly once.
+   - **Operation**: Uses the cached distances between cities to sum up the total distance of a given path, enhancing efficiency.
 
 3. **Nearest-Neighbor Heuristic for TSP**  
-   - **Purpose**: Provides an approximate solution to the TSP using the nearest-neighbor approach.
-   - **Operation**: Iteratively selects the closest unvisited city until all cities are visited, generating an optimal route that minimizes travel distance.
+   - **Purpose**: Provides a solution to the TSP by visiting the closest unvisited city at each step.
+   - **Operation**: The nearest-neighbor approach selects the closest city to the current city, iteratively building a path that approximates the optimal route.
+
+4. **2-Opt Optimization**  
+   - **Purpose**: Refines the solution to the TSP by optimizing the path using the 2-opt swap technique.
+   - **Operation**: The algorithm checks pairs of cities in the current route and swaps segments if it results in a shorter path, continuing until no further improvements can be made.
 
 ---
 
@@ -38,7 +42,7 @@ The core focus of this module is on solving the TSP by finding an optimal route 
 
 ```javascript
 // Import the module
-const { solveTSP } = require('./TravelingSalesman.js');
+const { solveSatisfiabilityAndTSP } = require('./solvedtsp.js');
 
 // Define cities data
 const cities = [
@@ -48,7 +52,7 @@ const cities = [
 ];
 
 // Run the function and log the result
-solveTSP(cities).then(result => {
+solveSatisfiabilityAndTSP(cities).then(result => {
     console.log("Optimal Path:", result.path);
     console.log("Total Distance:", result.distance);
 });
@@ -58,40 +62,32 @@ solveTSP(cities).then(result => {
 
 ## **Performance Highlights**
 
-- **Optimized Calculation**: For 50 objects, the optimized TSP calculation takes only 12.8 milliseconds, and for 50,000 objects, the refined results processing will take about 82.9 seconds (1.38 minutes).
-- **Async Efficiency**: The module's use of asynchronous functions ensures that calculations are non-blocking, allowing for faster computation times even with large datasets.
+- **Memoization Efficiency**: By caching distances between cities, the module avoids redundant calculations, leading to faster execution times for larger datasets.
+- **Approximate TSP Solution**: The nearest-neighbor heuristic generates a path that approximates the optimal solution. The 2-opt technique further optimizes this path, reducing the overall distance.
+- **Scalability**: The module efficiently handles datasets ranging from a few cities to several hundred, providing fast results even with an increasing number of cities.
 
 ---
 
 ## **Feedback**
 
-- **Efficiency**: The updated module handles large datasets with remarkable speed. For example, when solving the TSP for 50,000 objects, the module completes the process in less than 1.5 minutes.
-- **Clarity**: The structure is simplified, with each function focused on a specific task (distance calculations, TSP route generation, etc.), making the module easy to maintain.
+- **Efficiency**: The module performs well for medium-sized datasets, providing results in a reasonable time frame. For larger datasets, further optimizations or advanced algorithms like simulated annealing could improve performance.
+- **Clarity**: The module is easy to understand and maintain, with well-defined functions for each major step in the TSP solution.
 - **Suggestions**:  
-  - Error handling for invalid inputs (such as empty city lists) could be added for better robustness.
-  - The nearest-neighbor approach could be replaced with more advanced TSP algorithms (e.g., simulated annealing, genetic algorithms) to improve performance on larger datasets.
+  - Adding error handling to ensure valid city data is passed to the function could improve robustness.
+  - The nearest-neighbor heuristic could be enhanced by incorporating more advanced techniques for path optimization, like genetic algorithms.
 
 ---
 
 ## **Module History and Evolution**
 
-This module replaces all previous iterations, leaving a trail of improvements and refinements. Each earlier version served as a test case and learning step, and all earlier versions are now considered obsolete. The module’s evolution reflects the transition from a basic approach to an optimized and scalable solution for the TSP.
+This module represents a refined version of the initial approach to solving the TSP. Early versions of this module focused on brute-force methods, which were inefficient for larger datasets. Over time, optimizations such as memoization, the nearest-neighbor heuristic, and the 2-opt swap technique were introduced, leading to a significant performance boost and more efficient solutions.
 
-- **Initial Attempt**: Focused on basic solutions for solving the TSP using brute force.
-- **Subsequent Improvements**: Introduced optimization techniques such as caching and asynchronous processing to reduce calculation time for larger datasets.
+- **Initial Version**: Focused on basic, unoptimized TSP solutions with brute force.
+- **Subsequent Versions**: Introduced memoization, heuristic algorithms, and optimization techniques to handle larger datasets and reduce computation time.
+
+---
 
 ## **Notes**
 
-- **Cities Object Removal**: In the final implementation, **do not include the `cities` object** directly in the module. Instead, ensure that the cities data is passed as an argument to the `solveSatisfiabilityAndTSP` function when the module is used. This keeps the module clean and reusable.
-
-- **Console Log and Call-to-Action**: If you're using this example as a test case for local execution, remember that **console logging the results** (such as logging the optimal path and distance) is only for testing purposes. When exporting this module, **remove the `console.log` statements** to avoid output during normal execution in a production environment. This will allow for seamless integration into other applications.
-
-- **Exporting the Module**: The module is intended to be exported and used in a larger system. Use the following format to export the function properly:
-  
-  ```javascript
-  module.exports = { solveSatisfiabilityAndTSP };
-  ```
-
-  This makes `solveSatisfiabilityAndTSP` accessible to other JavaScript files that import the module.
-
-- **Testing Locally**: When testing the module locally, you can include the `cities` and `clauses` objects within the test script and execute the `solveSatisfiabilityAndTSP` function directly. Just ensure that these objects are removed in the final exported module.
+- **Cities Object**: Ensure that the `cities` array is passed as an argument when using the `solveSatisfiabilityAndTSP` function. The module does not include predefined city data; it expects the caller to provide it.
+- **Asynchronous Execution**: The module utilizes asynchronous execution, allowing it to handle larger datasets efficiently. However, for very large datasets, the algorithm’s performance might still be limited, and further optimization might be necessary.
