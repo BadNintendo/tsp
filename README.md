@@ -1,3 +1,9 @@
+tspsolved.py
+Optimal Path: ['City0', 'City1', 'City2', 'City4', 'City7', 'City9', 'City12', 'City14', 'City17', 'City19', 'City22', 'City24', 'City27', 'City29', 'City32', 'City34', 'City37', 'City39', 'City42', 'City44', 'City47', 'City49', 'City48', 'City46', 'City45', 'City43', 'City41', 'City40', 'City38', 'City36', 'City35', 'City33', 'City31', 'City30', 'City28', 'City26', 'City25', 'City23', 'City21', 'City20', 'City18', 'City16', 'City15', 'City13', 'City11', 'City10', 'City8', 'City6', 'City5', 'City3']
+Total Distance: 1051.0785415861549
+Elapsed Time: 0.009001 seconds
+
+Below is JavaScript where I built it to test the results in what I know best.
 ## **The visual mouse over object is added to display origions of x and y with hover options.** -**Try visual folder speedy html**!
 ![image](https://github.com/user-attachments/assets/e05afe75-d47c-4978-8673-54e2a30b6cf6)
 **Shows mouse over a object in the example below canvas**
