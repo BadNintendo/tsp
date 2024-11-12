@@ -1,29 +1,29 @@
 ```python
 traveler.py -> Python Results:
 
-**Path validation successful:** Each city is visited once, and path returns to origin.
+Path validation successful: Each city is visited once, and path returns to origin.
 
-**Initial Distance:** 1257.0209779547552
+Initial Distance: 1257.0209779547552
 
-**Optimized Distance:** 1051.0785415861549
+Optimized Distance: 1051.0785415861549
 
-**Initial Solution Time (seconds):** 0.0009884834289550781
+Initial Solution Time (seconds): 0.0009884834289550781
 
-**Optimization Time (seconds):** 0.005000591278076172
+Optimization Time (seconds): 0.005000591278076172
 
-**Initial Path:** 
+Initial Path: 
 ['City0', 'City1', 'City2', 'City4', 'City7', 'City9', 'City12', 'City14', 'City17', 'City19', 'City22', 'City24', 'City27', 'City29', 'City32', 'City34', 'City37', 'City39', 'City42', 'City44', 'City47', 'City49', 'City48', 'City46', 'City45', 'City43', 'City41', 'City40', 'City38', 'City36', 'City35', 'City33', 'City31', 'City30', 'City28', 'City26', 'City25', 'City23', 'City21', 'City20', 'City18', 'City16', 'City15', 'City13', 'City11', 'City10', 'City8', 'City6', 'City5', 'City3', 'City0']
 
-**Optimized Path:** 
+Optimized Path: 
 ['City0', 'City1', 'City2', 'City4', 'City7', 'City9', 'City12', 'City14', 'City17', 'City19', 'City22', 'City24', 'City27', 'City29', 'City32', 'City34', 'City37', 'City39', 'City42', 'City44', 'City47', 'City49', 'City48', 'City46', 'City45', 'City43', 'City41', 'City40', 'City38', 'City36', 'City35', 'City33', 'City31', 'City30', 'City28', 'City26', 'City25', 'City23', 'City21', 'City20', 'City18', 'City16', 'City15', 'City13', 'City11', 'City10', 'City8', 'City6', 'City5', 'City3', 'City0']
 
-**Initial Distance:** 1257.0209779547552
+Initial Distance: 1257.0209779547552
 
-**Optimized Distance:** 1051.0785415861549
+Optimized Distance: 1051.0785415861549
 
-**Initial Solution Time (seconds):** 0.0009884834289550781
+Initial Solution Time (seconds): 0.0009884834289550781
 
-**Optimization Time (seconds):** 0.005000591278076172
+Optimization Time (seconds): 0.005000591278076172
 ```
 
 **Below is JavaScript where I built it to test the results in what I know best.**
