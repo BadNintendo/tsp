@@ -1063,9 +1063,9 @@ cities = [
 result = dont_matter(cities)
 if result:
     # print("Optimized:", result)
-	# Fetch the first and second-to-last starting points
+	# Fetch the first and-last starting points
 	first_city = result[0]
-	second_to_last_city = result[-2]
+	second_to_last_city = result[-1]
 
 	# Log the results
 	print(f"First starting point: {first_city}")
