@@ -48,7 +48,6 @@ def dont_matter(cities):
 
     # Optimization Placeholder - simulate some optimization computation time
     start_optimization_time = time.time()
-    time.sleep(1)  # Simulate time taken for optimization (1 second)
     end_optimization_time = time.time()
     optimization_time = round((end_optimization_time - start_optimization_time) * 1000, 2)  # Convert to milliseconds
 
