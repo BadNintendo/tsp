@@ -1,4 +1,5 @@
 import time
+import random
 
 def morton_order(city):
     # Function to compute Morton order (Z-order curve) for sorting cities
@@ -42,9 +43,9 @@ def dont_matter(cities):
         sorted_path.append(closest_city)
         current_city = closest_city
     
-		# Ensure the first city is also placed at the end to form a loop
-        if sorted_path: 
-	        sorted_path.append(sorted_path[0])
+    # Ensure the first city is also placed at the end to form a loop
+    if sorted_path:
+        sorted_path.append(sorted_path[0])
 
     # Record end time for sorting
     end_sort_time = time.time()
