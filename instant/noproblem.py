@@ -51,13 +51,7 @@ def dont_matter(cities):
     end_sort_time = time.time()
     sort_time = round((end_sort_time - start_sort_time) * 1000, 2)  # Convert to milliseconds
 
-    # Optimization Placeholder - simulate some optimization computation time
-    start_optimization_time = time.time()
-    end_optimization_time = time.time()
-    optimization_time = round((end_optimization_time - start_optimization_time) * 1000, 2)  # Convert to milliseconds
-
     print(f"Sort Time (ms): {sort_time}")
-    print(f"Optimization Time (ms): {optimization_time}")
 
     return sorted_path
 
