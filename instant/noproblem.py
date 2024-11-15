@@ -42,6 +42,10 @@ def dont_matter(cities):
         sorted_path.append(closest_city)
         current_city = closest_city
     
+		# Ensure the first city is also placed at the end to form a loop
+        if sorted_path: 
+	        sorted_path.append(sorted_path[0])
+
     # Record end time for sorting
     end_sort_time = time.time()
     sort_time = round((end_sort_time - start_sort_time) * 1000, 2)  # Convert to milliseconds
@@ -1063,10 +1067,12 @@ cities = [
 result = dont_matter(cities)
 if result:
     # print("Optimized:", result)
-	# Fetch the first and-last starting points
+	# Fetch the first and second-to-last starting points
 	first_city = result[0]
-	second_to_last_city = result[-1]
+	second_to_last_city = result[-2]
+	last_city = result[-1]
 
 	# Log the results
 	print(f"First starting point: {first_city}")
 	print(f"Second-to-last starting point: {second_to_last_city}")
+	print(f"Last starting point: {last_city}")
