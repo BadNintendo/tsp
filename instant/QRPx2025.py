@@ -82,21 +82,16 @@ class QPRx2025:
         return result
 
     def morton_order(self, city):
-        # Function to compute Morton order (Z-order curve) for sorting cities
         def interleave_bits(x, y):
-            # Spread bits to interleave x and y coordinates
             def spread_bits(v):
                 v = (v | (v << 8)) & 0x00FF00FF
                 v = (v | (v << 4)) & 0x0F0F0F0F
                 v = (v | (v << 2)) & 0x33333333
                 v = (v | (v << 1)) & 0x55555555
                 return v
-            # Return interleaved bits of x and y
             return spread_bits(x) | (spread_bits(y) << 1)
-        # Convert city coordinates to integers and scale them
         x = int(city['x'] * 10000)
         y = int(city['y'] * 10000)
-        # Return the Morton order of the city
         return interleave_bits(x, y)
     
     def the_options(self, options):
@@ -136,39 +131,18 @@ class QPRx2025:
         return ''.join(chr(ord(input[i]) ^ ord(key[i % len(key)])) for i in range(len(input)))
 
     def dont_matter(self, cities):
-        """Sort and connect cities based on the least x and y values."""
         if not cities:
             print("No cities to process. Please check the input data.")
             return []
-
-        # Record start time for initial sorting
         start_sort_time = time.time()
-        
-        # Sort cities based on Morton order for initial sorting
         cities_sorted = sorted(cities, key=self.morton_order)
-        sorted_path = []
-        current_city = cities_sorted[0]
-        sorted_path.append(current_city)
-
-        while cities_sorted:
-            cities_sorted.remove(current_city)
-            if not cities_sorted:
-                break
-            # Find the closest city in the sorted list
-            closest_city = min(cities_sorted, key=lambda city: (city['x'], city['y']))
-            sorted_path.append(closest_city)
-            current_city = closest_city
-        
-        # Ensure the first city is also placed at the end to form a loop
-        if sorted_path:
-            sorted_path.append(sorted_path[0])
-
-        # Record end time for sorting
+        sorted_path = [cities_sorted.pop(0)]
+        cities_sorted.sort(key=lambda city: (city['x'], city['y']))
+        sorted_path.extend(cities_sorted)
+        sorted_path.append(sorted_path[0])
         end_sort_time = time.time()
-        sort_time = round((end_sort_time - start_sort_time) * 1000, 2)  # Convert to milliseconds
-
+        sort_time = round((end_sort_time - start_sort_time) * 1000, 2)
         print(f"Sort Time (ms): {sort_time}")
-
         return sorted_path
 
 cities = [
