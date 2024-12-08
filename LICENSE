@@ -1,34 +1,31 @@
-TSP Non-Commercial License v1.0
+**TSP Non-Commercial License v1.0**
 
-1. License Grant  
+1. **License Grant**  
 You (the "Licensee") are granted a limited, non-exclusive, non-transferable license to use, copy, modify, and distribute the software code provided in the TSP project (the "Software") for non-commercial purposes only. This includes personal, educational, or research-based activities.
 
-2. Commercial Use Restrictions  
-    - Commercial Use Prohibition: You may not use the Software or any derivative works of the Software for any form of commercial gain, profit, or revenue-generating activities, including but not limited to selling, licensing, distributing, or incorporating the Software into a product or service for sale, without prior written consent from the copyright holder.
-    - Commercial License Requirement: Any use of the Software for commercial purposes requires a separate commercial license. Contact the original author for commercial use approval.
+2. **Commercial Use Restrictions**
+   - **Commercial Use Prohibition**: You may not use the Software or any derivative works of the Software for any form of commercial gain, profit, or revenue-generating activities, including but not limited to selling, licensing, distributing, or incorporating the Software into a product or service for sale, without prior written consent from the copyright holder.
+   - **Commercial License Requirement**: Any use of the Software for commercial purposes requires a separate commercial license. Contact the original author for commercial use approval.
 
-3. Revenue Sharing for Commercial Use  
+3. **Revenue Sharing for Commercial Use**  
 If you have obtained consent or a commercial license to use the Software and any modifications to the Software generate profit or revenue, you agree to the following contribution terms:
-    - Contribution Fee: You are required to pay 5% of the total gross revenue generated from the Software or any derivative works thereof. This applies to any first implementations or revenue-generating products incorporating the Software or parts of it. Revenue from In-Game Rewards or Currency: Any use of the Software that generates virtual currency, rewards, redeemable items, or similar benefits that have monetary value will also be subject to the 5% contribution.
-    - Revenue Cap Reduction: If your total gross revenue exceeds $1 million in proceeds, the contribution fee is reduced to 3% for all proceeds beyond the $1 million threshold.
-    - Acknowledgment of Contribution: Companies using the Software must acknowledge the contribution and provide visible credit to the original author, Badnintendo, and TSP in any public materials or products.
+   - **Contribution Fee**: You are required to pay 5% of the total gross revenue generated from the Software or any derivative works thereof. This applies to any first implementations or revenue-generating products incorporating the Software or parts of it. Revenue from In-Game Rewards or Currency: Any use of the Software that generates virtual currency, rewards, redeemable items, or similar benefits that have monetary value will also be subject to the 5% contribution.
+   - **Revenue Cap Reduction**: If your total gross revenue exceeds $1 million in proceeds, the contribution fee is reduced to 3% for all proceeds beyond the $1 million threshold.
+   - **Acknowledgment of Contribution**: Companies using the Software must acknowledge the contribution and provide visible credit to the original author, Badnintendo, and TSP in any public materials or products.
 
-4. Copyright and Attribution  
-    - Preservation of Copyright: You may not remove, alter, or obscure any copyright notices, attributions, or remarks in the Software. All parts of the Software, including modules and JavaScript code, must retain the original copyright notices.
-    - Author Attribution: All changes or modifications to the Software must retain attribution to the original author, Badnintendo, as the creator of the Software. You may shorten comments and minimize inline documentation for readability, but any comments containing copyright or attribution information must remain intact.
-    - Minimum Attribution: In cases where inline comments are too large, the attribution must at least contain the name of the author and a brief reference to the copyright, for example, “Original Code by Badnintendo, Copyright (c) TSP 2024.”
+4. **Copyright and Attribution**
+   - **Preservation of Copyright**: You may not remove, alter, or obscure any copyright notices, attributions, or remarks in the Software. All parts of the Software, including modules and JavaScript code, must retain the original copyright notices.
+   - **Author Attribution**: All changes or modifications to the Software must retain attribution to the original author, Badnintendo, as the creator of the Software. You may shorten comments and minimize inline documentation for readability, but any comments containing copyright or attribution information must remain intact.
+   - **Minimum Attribution**: In cases where inline comments are too large, the attribution must at least contain the name of the author and a brief reference to the copyright, for example, “Original Code by Badnintendo, Copyright (c) TSP 2024.”
 
-5. Modifications  
+5. **Modifications**  
 You are permitted to modify and improve the Software, provided that:
-    - Attribution: All modifications clearly indicate that the original code was written by Badnintendo and acknowledge any changes made.
-    - Copyright Preservation: Any modified versions of the Software must include the same copyright notices as in the original Software, and you must retain attribution to the original author.
-    - No Proprietary Use: You may not release the Software or any derivative works under a proprietary or closed-source license without written consent from the original author.
+   - **Attribution**: All modifications clearly indicate that the original code was written by Badnintendo and acknowledge any changes made.
+   - **Copyright Preservation**: Any modified versions of the Software must include the same copyright notices as in the original Software, and you must retain attribution to the original author.
+   - **No Proprietary Use**: You may not release the Software or any derivative works under a proprietary or closed-source license without written consent from the original author.
 
-6. Violation of Terms  
+6. **Violation of Terms**  
 If you violate the terms of this license, including but not limited to using the Software for commercial purposes without consent, failing to pay the required contribution fees, or removing copyright information, you forfeit your rights to use, modify, or distribute the Software. Legal action may be pursued to recover damages or enforce this agreement.
 
-7. Prohibited Users  
-Companies such as Amazon, Twitch, or any entities associated with Elon Musk or Jeff Bezos are explicitly prohibited from using any part of the Software or its concepts, even if they follow the license terms. These companies are considered irrelevant on the scales of time and are not permitted to use the Software in any capacity.
-
-8. Disclaimer of Warranty  
+7. **Disclaimer of Warranty**  
 The Software is provided "as is," without warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the copyright holder be liable for any claim, damages, or other liability arising from the use of the Software.
